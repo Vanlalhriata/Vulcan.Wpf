@@ -1,0 +1,12 @@
+﻿<v:Shell x:Class="Sandbox.MainWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:v="http://schemas.makkati.in/wpf/framework"
+         StartUpView="HomeView">
+    
+    <Grid>
+
+        <Frame NavigationUIVisibility="Hidden"/>
+
+    </Grid>
+</v:Shell>

@@ -1,0 +1,11 @@
+﻿<v:View x:Class="Sandbox.Views.HomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="http://schemas.makkati.in/wpf/framework"
+        DataContext="{Binding MainViewModel, Source={x:Static v:FrameworkApp.ViewModelLocator}}">
+    
+    <Grid>
+
+    </Grid>
+    
+</v:View>

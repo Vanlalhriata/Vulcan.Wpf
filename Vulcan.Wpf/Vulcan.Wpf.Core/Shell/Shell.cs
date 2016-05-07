@@ -20,20 +20,43 @@ namespace Vulcan.Wpf.Core
             get { return (string)GetValue(StartupViewProperty); }
             set { SetValue(StartupViewProperty, value); }
         }
+
+        public static readonly DependencyProperty ShellModeProperty = DependencyProperty.Register("ShellMode", typeof(ShellMode), typeof(Shell));
+        public ShellMode ShellMode
+        {
+            get { return (ShellMode)GetValue(ShellModeProperty); }
+            set { SetValue(ShellModeProperty, value); }
+        }
         
         public Shell()
         {
             this.Loaded += Shell_Loaded;
+            this.SourceInitialized += onSourceInitialized; // to show taskbar on fullscreen
+        }
 
-            this.WindowStyle = WindowStyle.None;
-            this.WindowState = WindowState.Maximized;
-            this.ResizeMode = ResizeMode.NoResize;
+        private void setShellMode()
+        {
+            switch (ShellMode)
+            {
+                case ShellMode.Fullscreen:
+                    this.WindowStyle = WindowStyle.None;
+                    this.WindowState = WindowState.Maximized;
+                    break;
 
-            this.SourceInitialized += onSourceInitialized;
+                case ShellMode.FullscreenWithTaskbar:
+                    this.WindowStyle = WindowStyle.None;
+                    this.WindowState = WindowState.Maximized;
+                    this.ResizeMode = ResizeMode.NoResize;
+                    break;
+
+                // no changes for ShellMode.Inherit
+            }
         }
 
         private void Shell_Loaded(object sender, RoutedEventArgs e)
         {
+            setShellMode();
+
             var frame = VisualHelper.FindVisualChild<Frame>(this);
 
             if (null != frame)
@@ -52,8 +75,11 @@ namespace Vulcan.Wpf.Core
         
         private void onSourceInitialized(object sender, EventArgs e)
         {
-            System.IntPtr handle = (new WindowInteropHelper(this)).Handle;
-            HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(FullscreenHandler.WindowProc));
+            if (ShellMode == ShellMode.FullscreenWithTaskbar)
+            {
+                System.IntPtr handle = (new WindowInteropHelper(this)).Handle;
+                HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(FullscreenHandler.WindowProc));
+            }
         }
 
         #endregion Fullscreen with taskbar

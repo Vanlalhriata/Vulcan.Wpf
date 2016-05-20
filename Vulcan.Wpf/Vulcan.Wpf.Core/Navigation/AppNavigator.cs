@@ -34,7 +34,7 @@ namespace Vulcan.Wpf.Core
                     navigationService.Navigate(view);
             }
             else
-                throw new ArgumentNullException(nameof(viewName), "target was null in AppNavigator.NavigateTo(object target)");
+                throw new ArgumentNullException(nameof(viewName), "invalid viewName in AppNavigator.NavigateTo(string viewName)");
         }
     }
 }

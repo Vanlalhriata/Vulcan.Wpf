@@ -33,6 +33,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
@@ -48,8 +49,15 @@
     <Compile Include="Behaviors\ButtonContextMenuBehavior.cs" />
     <Compile Include="Behaviors\SelectAllTextOnFocusMultiBehavior.cs" />
     <Compile Include="Controls\AnimatedStackPanel.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\MenuItemExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vulcan.Wpf.Core\Vulcan.Wpf.Core.csproj">
+      <Project>{288bf6d4-68ce-4558-8b6d-cc2f0795c801}</Project>
+      <Name>Vulcan.Wpf.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

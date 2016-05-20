@@ -28,7 +28,8 @@ namespace Vulcan.Wpf.Core
             }
             catch (Exception ex)
             {
-                AppHelper.Logger.Log($"Error in DynamicHelper.GetDynamicMember - returning null. memberName: {memberName}. Error: {ex.Message}");
+                AppHelper.Logger.Log($"Error in DynamicHelper.GetDynamicMember - returning null. memberName: {memberName}. Error: {ex.Message}",
+                                        typeof(DynamicHelper), LogCategory.Warning, LogPriority.Medium);
                 return null;
             }
             

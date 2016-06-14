@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Vulcan.Wpf.Core
 {
-    public abstract class View : UserControl, IPartImportsSatisfiedNotification
+    public class View : UserControl, IPartImportsSatisfiedNotification
     {
         [Import(typeof(ILogger), AllowDefault = true)]
         protected ILogger logger;

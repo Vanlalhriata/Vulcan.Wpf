@@ -13,12 +13,38 @@ namespace Vulcan.Wpf.Core
     /// </summary>
     public class ObservableObject : INotifyPropertyChanged
     {
+        private readonly Dictionary<string, object> propertyBackingDictionary = new Dictionary<string, object>();
+
+        protected T GetPropertyValue<T>([CallerMemberName]string propertyName = null)
+        {
+            if (null == propertyName)
+                throw new ArgumentNullException(nameof(propertyName));
+
+            object value;
+            if (propertyBackingDictionary.TryGetValue(propertyName, out value))
+                return (T)value;
+
+            return default(T);
+        }
+
+        protected bool SetPropertyValue<T>(T newValue, [CallerMemberName]string propertyName = null)
+        {
+            if (null == propertyName)
+                throw new ArgumentNullException(nameof(propertyName));
+
+            if (EqualityComparer<T>.Default.Equals(newValue, GetPropertyValue<T>(propertyName)))
+                return false;
+
+            propertyBackingDictionary[propertyName] = newValue;
+            RaisePropertyChanged(propertyName);
+
+            return true;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void RaisePropertyChanged([CallerMemberName]string propertyName = "")
         {
-            var handler = PropertyChanged;
-            if (null != handler)
-                handler(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

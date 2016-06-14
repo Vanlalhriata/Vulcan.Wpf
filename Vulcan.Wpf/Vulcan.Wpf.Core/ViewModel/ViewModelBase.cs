@@ -12,6 +12,7 @@ namespace Vulcan.Wpf.Core
     public class ViewModelBase : MvvmObject
     {
         // This will trigger when a Vulcan.Wpf.Core.View is Loaded and has this object as its DataContext
+        // TODO: This is probably a bad idea since a viewModel can be the data context of more than one view
         public virtual void OnViewLoaded()
         {
         }
@@ -25,32 +26,16 @@ namespace Vulcan.Wpf.Core
         //     </ei:PropertyChangedTrigger>
         //</i:Interaction.Triggers>
 
-        private string targetVisualStateName;
         public string TargetVisualStateName
         {
-            get { return targetVisualStateName; }
-            set
-            {
-                if (value != targetVisualStateName)
-                {
-                    targetVisualStateName = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<string>(); }
+            set { SetPropertyValue(value); }
         }
 
-        private bool visualStateChangeTrigger;
         public bool VisualStateChangeTrigger
         {
-            get { return visualStateChangeTrigger; }
-            set
-            {
-                if (value != visualStateChangeTrigger)
-                {
-                    visualStateChangeTrigger = value;
-                    RaisePropertyChanged();
-                }
-            }
+            get { return GetPropertyValue<bool>(); }
+            set { SetPropertyValue(value); }
         }
 
         protected void triggerVisualState(string stateName)

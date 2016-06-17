@@ -51,6 +51,7 @@
     <Compile Include="Controls\AnimatedStackPanel.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Extensions\MenuItemExtensions.cs" />
+    <Compile Include="Helpers\ListHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

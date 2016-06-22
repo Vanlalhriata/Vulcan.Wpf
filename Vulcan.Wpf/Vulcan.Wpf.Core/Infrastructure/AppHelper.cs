@@ -46,5 +46,14 @@ namespace Vulcan.Wpf.Core
             var result = DynamicHelper.GetDynamicMember(FrameworkApp.ViewLocator, alias) as View;
             return result;
         }
+
+        public static T GetExportedValue<T>()
+        {
+            if (null != app)
+                return app.CompositionContainer.GetExportedValue<T>();
+            else
+                return default(T);
+        }
     }
+
 }

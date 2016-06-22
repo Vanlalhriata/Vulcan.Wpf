@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Vulcan.Wpf.Core
 {
-    internal static class DynamicHelper
+    public static class DynamicHelper
     {
         /// <summary>
         /// Get objects from DynamicObject objects

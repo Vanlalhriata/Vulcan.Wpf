@@ -37,4 +37,35 @@ namespace Vulcan.Wpf.Core
             executeMethod(parameter);
         }
     }
+    
+    public class RelayCommand<T> : ICommand
+    {
+        private Action<T> executeMethod;
+        private Func<T, bool> canExecuteMethod;
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public RelayCommand(Action<T> executeMethod, Func<T, bool> canExecuteMethod = null)
+        {
+            this.executeMethod = executeMethod;
+            this.canExecuteMethod = canExecuteMethod;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            if (null == canExecuteMethod)
+                return true;
+
+            return canExecuteMethod((T)Convert.ChangeType(parameter, typeof(T)));
+        }
+
+        public void Execute(object parameter)
+        {
+            executeMethod((T)Convert.ChangeType(parameter, typeof(T)));
+        }
+    }
 }

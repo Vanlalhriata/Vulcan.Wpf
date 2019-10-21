@@ -12,11 +12,7 @@ namespace Vulcan.Wpf.Core
         private Action<object> executeMethod;
         private Func<object, bool> canExecuteMethod;
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+        public event EventHandler CanExecuteChanged;
 
         public RelayCommand(Action<object> executeMethod, Func<object, bool> canExecuteMethod = null)
         {
@@ -27,6 +23,9 @@ namespace Vulcan.Wpf.Core
         public bool CanExecute(object parameter)
         {
             if (null == canExecuteMethod)
+                return true;
+                
+            if (null == parameter)
                 return true;
 
             return canExecuteMethod(parameter);
@@ -58,6 +57,9 @@ namespace Vulcan.Wpf.Core
         public bool CanExecute(object parameter)
         {
             if (null == canExecuteMethod)
+                return true;
+                
+            if (null == parameter)
                 return true;
 
             return canExecuteMethod((T)Convert.ChangeType(parameter, typeof(T)));
